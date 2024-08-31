@@ -1,5 +1,7 @@
 # LoginUI
 Login page using HTML,CSS,JS
+
+
 index.html
 
 -created a form that contains input feild ,password ,remember me checkbox and a submit button -on click the submit button exihibits login functionality --
