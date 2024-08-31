@@ -1,0 +1,207 @@
+/* link for svg icon extracted */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+/* global color pattern naming for easy application of colours*/
+:root{
+    --accent-color:hsl(300, 51%, 25%);
+    --base-color:white;
+    --text-color:rgb(34, 2, 34);
+    --input-color:rgb(211, 171, 211);
+}
+/* font sans-serif*/
+html{
+    font-family:sans-serif;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    text-align: center;
+}
+
+ /* loading  icon properties  */
+.spinner {
+    display:none;
+        /* position: absolute; */
+        width: 20px;
+        height: 20px;
+        border: 11.2px #5c235c double;
+        border-left-style: solid;
+        border-radius: 50%;
+        animation: spinner-aib1d7 0.75s infinite linear;
+     }
+     
+     @keyframes spinner-aib1d7 {
+        to {
+           transform: rotate(360deg);
+        }
+     }
+
+body{
+    min-height: 100vh;
+    background-image: url('p3.jpg');
+    background-size: cover;
+    background-position: right;
+    overflow: hidden;
+    /* change */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.formcon{
+    box-sizing: border-box;
+    background-color: var(--base-color);
+    height: 80vh;
+    width: max(40%,500px);
+    /* height: 100vh; 
+    width: max(40%,600px); */
+    padding: 10px;
+    /* border-radius: 0 20px 20px 0; */
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+/* error msg styling */
+.msg{
+    display: none;
+    color: red;
+}
+/* upon success text styling */
+.redirection{
+    display: none;
+    color:green;
+    font-size: 15px;
+    font-weight: bold;
+}
+/* login text properties */
+h1{
+    font-size: 3rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--accent-color);
+}
+.form{
+    position: relative;
+    /* width: min(400px,100%); */
+    width:(50vh);
+    margin-top: 20px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.form div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+.form label{
+    flex-shrink: 0;
+    height: 50px;
+    width: 50px;
+    background-color: var(--accent-color);
+    fill: var(--base-color);
+    color: var(--base-color);
+    border-radius: 10px 0 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+#mail,#pwd{
+    box-sizing: border-box;
+    flex-grow: 1;
+    min-width:0;
+    height: 50px;
+    padding: 1em;
+    font: inherit;
+    border-radius: 0 10px 10px 0;
+    border: 2px solid var(--input-color);
+    border-left: none;
+    background-color: var(--input-color);
+    transition: 150ms ease;
+    padding-right: 2.5em;
+}
+/* eye styling */
+#togglePassword{
+    position: absolute;
+    right: 40px;
+    top: 52.5%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--text-color);
+
+}
+
+/* on placing ponter on tese hover effect */
+#mail:hover{
+    border:2px solid var(--accent-color);
+}
+#pwd:hover{
+    border:2px solid var(--accent-color);
+}
+/* when entering text inside pswd and mail (on focus) this styling is applied */
+#pwd:focus{
+    outline: none;
+    border-color: var(--text-color);
+}
+#mail:focus{
+    outline: none;
+    border-color: var(--text-color);
+}
+/* apply to immediate child only that means when mail/pwd is entered only that field attains this styling */
+div:has(#mail:focus) > label{
+    background-color: var(--text-color);
+}
+div:has(#pwd:focus) > label{
+    background-color: var(--text-color);
+}
+/* placeholder styling */
+#mail::placeholder{
+    color: var(--accent-color);
+    opacity: 1;
+}
+#pwd::placeholder{
+    color: var(--accent-color);
+    opacity: 1;
+}
+/* submit button styling*/
+.form button{
+    margin-top: 10px;
+    border: none;
+    border-radius: 1000px;
+    padding: 0.85em 4em;
+    background-color: var(--accent-color);
+    color: var(--base-color);
+    font:inherit;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 150ms ease;
+}
+.form button:hover{
+    background-color: var(--text-color);
+}
+.form button:focus{
+    outline: none;
+}
+
+ /* for mobile */
+@media only screen and (max-width:600px){
+    .formcon{
+        width:100%;
+      
+    }
+    body{
+        background-image: none;
+    }
+}
+

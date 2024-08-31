@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- linking css to html page -->
+    <link rel="stylesheet" href="st.css">
+    <!-- cdn link for icon  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" 
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- axios cdn link for api call -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.5/axios.min.js" integrity="sha512-01Pe9P3mJM/4c80VuoYEGHlspKGbd9uWQe9HtdLsdTqV0CS1kz8ca44sinVEXEvlZNciMmsAjeEbm5ZxHC7yYg==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Document</title>
+</head>
+<body>
+  
+ <div class="formcon">
+    <div class="form">
+   <!-- msg class that shows the errors in mail and password -->
+      <div class="msg"></div>
+        <h1>Login</h1>
+         <div></div>
+<!-- mail feild    -->
+         <div class="ic">
+               <label for="mail" id="mlabel">
+                 <span>@</span></label>
+                 <input required type="text" id="mail" name="mail" placeholder="Enter email" required>
+         </div>
+ <!-- password feild  -->
+         <div class="ic">
+            <label for="pwd" id="plabel">
+               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm240-200q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80Z"/></svg>  
+            </label>
+            <input required  type="password" id="pwd"  name="pwd"  placeholder="Enter password" required>
+            <!-- eye for password visibility -->
+                <i class="far fa-eye-slash" id="togglePassword" style="cursor: pointer;"></i>
+         </div>
+<!-- checkbox -->
+          <div><input id="cd" type="checkbox">Remember me</div>
+
+ <!-- submit button with login function defined inside script -->
+         <button onclick="login()" type="submit">Submit</button>
+    </div>
+<!-- loading spinner -->
+      <div class="spinner"></div><br>
+      <!-- this class redirection is used to show a msg of login success/fail upon api call which is initially set to show success statement -->
+      <div class="redirection">
+                Login successfull redirecting to home page
+      </div>
+ </div>
+ <script>
+   // for visibilty of password entered in form here an event is added which on click performs the function
+document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordField = document.getElementById('pwd');
+            // the attribute type is obtained
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            // initially the password is not visible on click slash eye is transformed to eye and password is visible(toggle for true and false)
+            this.classList.toggle('fa-eye-slash');
+            this.classList.toggle('fa-eye');
+           
+        });
+
+
+// login function comes into action on click on submit button
+
+    let login=()=>{
+      // elements are obtained by their respective class and id name and assigned to a variable
+        let x=document.getElementsByClassName("msg")[0]
+        let user=document.getElementById("mail").value
+        let upwd=document.getElementById("pwd").value
+        //   condition to check mail
+        let checkemail= /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        if(checkemail.test(user))
+      //   if mail entered satisfies the requirement then password field is checked 
+     {
+      if(upwd.length>=6)
+     // checking password
+     { 
+      // if password is correct then the lodding spinner appears 
+       document.getElementsByClassName("spinner")[0].style.display='block'
+
+       // And the user info is posted in api call using axios.post
+      
+        axios.post("https://jsonplaceholder.typicode.com/posts",{"email":user,"pwd":upwd}).then((res)=>{ 
+          // if api call is successful then loading spinner disappears and login succesfull msg appears 
+          document.getElementsByClassName("spinner")[0].style.display='none'
+          document.getElementsByClassName("redirection")[0].style.display='block'
+          
+          //  the page is redirected to home.html using setTimeout --for 2 sec
+          setTimeout(()=>{
+            window.location.assign("home.html")
+          },2000)
+
+     }).catch((e)=>{
+      // if api call is not succesfull then 
+          document.getElementsByClassName("spinner")[0].style.display='none'
+          // assigning the class redirection to variable m and setting the text as login failed--msg and its font color is set to red
+           document.getElementsByClassName("redirection")[0].style.color="red"
+          let m=document.getElementsByClassName("redirection")[0]
+          m.innerHTML="login failed"
+           document.getElementsByClassName("redirection")[0].style.display='block'
+     })
+        
+        
+     }
+   //   if password is wrong then a msg appears saying incorrect password at top of login page
+     else{
+      x.innerHTML="incorrect password"
+      document.getElementsByClassName("msg")[0].style.display='block'
+      document.getElementById("pwd").style.borderColor="crimson"
+      document.getElementById("plabel").style.backgroundColor="crimson"
+      
+     }
+     }
+     else{
+      
+      // when error occured due to input feild being empty then a msg of entering it is mandatory appears
+        if(user.length>0){
+         x.innerHTML="Check Email"
+      document.getElementsByClassName("msg")[0].style.display='block'
+      document.getElementById("mail").style.borderColor="crimson"
+      document.getElementById("mlabel").style.backgroundColor="crimson"
+   }
+   
+   // when error is due to entering uncertain email then this block containing msg executes 
+        else{
+            x.innerHTML="email is mandatory"
+      document.getElementsByClassName("msg")[0].style.display='block'
+      document.getElementById("mail").style.borderColor="crimson"
+      document.getElementById("mlabel").style.backgroundColor="crimson"
+        }
+     }
+     }
+ </script>
+</body>
+</html>

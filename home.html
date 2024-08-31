@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            outline: none;
+        }
+        /* for the text to appear is center display flex is used and styling to content is given accordingly */
+        body{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: bisque;
+        }
+        .l{ 
+            color: blueviolet;
+            font-size:2.5rem;
+            font-weight: 900;
+        }
+    </style>
+
+</head>
+<body>
+
+     <div class="l">
+        <p>Home Page</p>
+    </div>
+    <script>
+    // after 2sec the page is redirected to login page again
+        setTimeout(()=>{
+            window.location.href="index.html"
+        },2000)
+    </script>
+</body>
+</html>
